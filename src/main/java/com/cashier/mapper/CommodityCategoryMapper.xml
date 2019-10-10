@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cashier.mapper.CommodityCategoryMapper">
+
+    <resultMap id="CommodityCategory" type="com.cashier.pojo.CommodityCategory">
+        <id column="category_id"  jdbcType="INTEGER" property="categoryId" />
+        <result column="type_id" jdbcType="INTEGER" property="typeId"/>
+        <result column="template_number" jdbcType="VARCHAR" property="templateNumber"/>
+        <result column="operational_level" jdbcType="INTEGER" property="operationalLevel"/>
+        <result column="category_number" jdbcType="VARCHAR" property="categoryNumber"/>
+        <result column="category_name" jdbcType="VARCHAR" property="categoryName"/>
+        <result column="category_state" jdbcType="INTEGER" property="categoryState"/>
+        <result column="store_number" jdbcType="VARCHAR" property="storeNumber"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+
+    <!-- 查询门店显示类目 -->
+    <select id="stateSelect" resultMap="CommodityCategory" parameterType="java.lang.String">
+        select * from commodity_category where store_Number = #{storeNumber} and category_state = 0
+    </select>
+
+</mapper>

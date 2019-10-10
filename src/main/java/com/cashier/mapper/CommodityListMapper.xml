@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cashier.mapper.CommodityListMapper">
+
+    <resultMap id="CommodityList" type="com.cashier.pojo.CommodityList">
+        <id column="commodity_id"  jdbcType="INTEGER" property="commodityId" />
+        <result column="template_number" jdbcType="VARCHAR" property="templateNumber"/>
+        <result column="commodity_number" jdbcType="VARCHAR" property="commodityNumber"/>
+        <result column="formulation_number" jdbcType="VARCHAR" property="formulationNumber"/>
+        <result column="category_number" jdbcType="VARCHAR" property="categoryNumber"/>
+        <result column="trade_name" jdbcType="VARCHAR" property="tradeName"/>
+        <result column="internal_price" jdbcType="DECIMAL" property="internalPrice"/>
+        <result column="takeaway_price" jdbcType="DECIMAL" property="takeawayPrice"/>
+
+        <result column="box_charges" jdbcType="DECIMAL" property="boxCharges"/>
+        <result column="stock" jdbcType="INTEGER" property="stock"/>
+        <result column="upper_shelf" jdbcType="INTEGER" property="upperShelf"/>
+        <result column="commodity_classification" jdbcType="VARCHAR" property="commodityClassification"/>
+        <result column="commodity_option" jdbcType="INTEGER" property="commodityOption"/>
+        <result column="sign" jdbcType="INTEGER" property="sign"/>
+        <result column="commodity_description" jdbcType="VARCHAR" property="commodityDescription"/>
+
+        <result column="commodity_pictures" jdbcType="VARCHAR" property="commodityPictures"/>
+        <result column="sales_volume" jdbcType="INTEGER" property="salesVolume"/>
+        <result column="store_number" jdbcType="VARCHAR" property="storeNumber"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+
+    <!-- 查询门店热销商品 -->
+    <select id="signSelect" resultMap="CommodityList" parameterType="java.lang.String">
+        select * from Commodity_list where store_Number = #{storeNumber} and sign = 2
+    </select>
+
+    <!-- 根据类目编号查询商品 -->
+    <select id="categoryNumberSelect" resultMap="CommodityList" parameterType="java.lang.String">
+        select * from Commodity_list where category_number = #{categoryNumber}
+    </select>
+
+    <!-- 根据商品名称查找商品 -->
+    <select id="tradeNameSelect" resultMap="CommodityList" parameterType="com.cashier.pojo.CommodityList">
+        select * from Commodity_list where trade_name = #{tradeName} and store_Number = #{storeNumber}
+    </select>
+
+    <!-- 根据商品序号查找商品 -->
+    <select id="commodityIdSelect" resultMap="CommodityList" parameterType="com.cashier.pojo.CommodityList">
+        select * from Commodity_list where commodity_id = #{commodityId} and store_Number = #{storeNumber}
+    </select>
+
+</mapper>

@@ -1,0 +1,59 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: u523pZEfAxayXTHR
+    url: jdbc:mysql://47.106.237.105:3306/restaurant?characterEncoding=utf-8
+  jpa:
+    show-sql: true
+  jackson:
+    default-property-inclusion: non_null
+  redis:
+    host: 127.0.0.1
+    port: 6379
+server:
+  context-path: /cashier
+  #配置程序端口，默认为8080
+  port: 8080
+  #用户绘画session过期时间，以秒为单位session.timeout=
+  session:
+    timeout: 20
+# 配置Tomcat编码,默认为UTF-8server.tomcat.uri-encoding=UTF-8
+  tomcat:
+    uri-encoding: UTF-8
+    # 配置最大线程数server.tomcat.max-threads=1000
+    max-threads: 1000
+  #ssl:
+    # Https 路径
+    #key-store: /user/cert/my.keystore
+    # Https 密码
+    #key-store-password: 123456
+
+# logging:
+# pattern:
+#  console:  "%d - %msg%n"
+# # path: /var/log/tomcat/
+#  file: /var/log/tomcat/sell.log
+# level: debug
+wechat:
+  mpAppId: wx5c5d3e4258be984d #小程序Id
+  mpAppSecret:  ef818f93fb6dfe52b9b7a992d4af552d #小程序Secret
+  openAppId: wx6ad144e54af67d87 #后台程序Id
+  openAppSecret: 91a2ff6d38a2bbccfb7e9f9079108e2e #后台程序Secret
+  mchId: 1543277861 #商户号
+  mchKey: 9e11e87475ebfcb0cfcb2de4a6f1b9bb #商户密匙
+  templateId:
+        orderStatus: 3s3HYEvoHVwJ0yZgadBfF9BaKzadJx3UqzQhugFkxOM
+  keyPath: D:\weixing\apiclient_cert.p12
+  notifyUrl: http://sell.natapp4.cc/sell/pay/notify
+  mpAuthorizeUrl: http://fmx.weixin.gzcstec.com
+  openAuthorizeUrl: http://fmx.weixin.gzcstec.com
+  sell: http://fmx.weixin.gzcstec.com
+
+#debug: true
+#配置上传文件路径
+web.file.path: D:/site/java/img/tp/
+mybatis:
+  mapper-locations: classpath:com/cashier/mapper/*.xml
+
+

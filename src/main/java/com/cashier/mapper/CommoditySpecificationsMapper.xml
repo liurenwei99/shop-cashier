@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cashier.mapper.CommoditySpecificationsMapper">
+
+    <resultMap id="CommoditySpecifications" type="com.cashier.pojo.CommoditySpecifications">
+        <id column="specifications_id"  jdbcType="VARCHAR" property="specificationsId" />
+        <result column="specifications_texture" jdbcType="VARCHAR" property="specificationsTexture"/>
+        <result column="specifications_size" jdbcType="VARCHAR" property="specificationsSize"/>
+        <result column="specifications_reserve" jdbcType="VARCHAR" property="specificationsReserve"/>
+        <result column="specifications_reserve1" jdbcType="VARCHAR" property="specificationsReserve1"/>
+        <result column="specifications_cost" jdbcType="DECIMAL" property="specificationsCost"/>
+        <result column="specifications_abroad" jdbcType="DECIMAL" property="specificationsAbroad"/>
+        <result column="specifications_stock" jdbcType="INTEGER" property="specificationsStock"/>
+        <result column="box_charges" jdbcType="DECIMAL" property="boxCharges"/>
+        <result column="commodity_number" jdbcType="VARCHAR" property="commodityNumber"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+
+    <!-- 商品编号查询商品规格 -->
+    <select id="commodityNumberSelect" resultMap="CommoditySpecifications" parameterType="java.lang.String">
+        select * from commodity_specifications where commodity_number = #{commodityNumber}
+    </select>
+
+</mapper>
