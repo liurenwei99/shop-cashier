@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cashier.mapper.OrderMapper">
+	<resultMap type="java.util.HashMap" id="SelectOrderAndDetialMap">
+ 		<id column="id" property="id"/>
+ 			<!-- o.id id, o.tea_fee tea_fee, o.people_count people_count, o.total_money total_money, o.table_num table_num, o.order_type order_type, 
+			o.eat_type, o.remark remark, o.emp_name emp_name, o.emp_id emp_id, o.emp_num emp_num, o.reality_put reality_put, o.discount discount,
+			o.shop_id shop_id, o.pay_type pay_type, o.pay_mode pay_mode, o.printers printers, o.create_time create_time, o.update_time update_time, o.pay_time pay_time,
+	 -->	
+		<result property="tea_fee" column="tea_fee"/>
+		<result property="people_count" column="people_count"/>
+		<result property="total_money" column="total_money"/>
+		<result property="list_money" column="list_money"/>
+		<result property="already_money" column="already_money"/>
+		<result property="table_num" column="table_num"/>
+		<result property="order_type" column="order_type"/>
+		<result property="eat_type" column="eat_type"/>
+		<result property="remark" column="remark"/>
+		<result property="emp_name" column="emp_name"/>
+		<result property="emp_id" column="emp_id"/>
+		<result property="emp_num" column="emp_num"/>
+		<result property="reality_put" column="reality_put"/>
+		<result property="discount" column="discount"/>
+		<result property="shop_id" column="shop_id"/>
+		<result property="pay_type" column="pay_type"/>
+		<result property="pay_mode" column="pay_mode"/>
+		<result property="printers" column="printers"/>
+		<result property="create_time" column="create_time" jdbcType="TIMESTAMP"  javaType="java.util.Date"/>
+		<result property="update_time" column="update_time" jdbcType="TIMESTAMP"  javaType="java.util.Date"/>
+		<result property="pay_time" column="pay_time" jdbcType="TIMESTAMP"  javaType="java.util.Date"/>
+		<collection property="details" javaType="java.util.List" ofType="java.util.HashMap" >
+			<!-- d.id detail_id, d.order_id order_id, d.item_id item_id, d.title title, d.show_img show_img,
+			 d.price price, d.vip_price vip_price, d.count count, d.spec spec, d.discount d_discount -->
+	
+		  <id column="detail_id" property="id"/>
+		  <id column="order_id" property="order_id"/>
+		  <id column="item_id" property="item_id"/>
+		  <id column="title" property="title"/>
+		  <id column="show_img" property="show_img"/>
+		  <id column="price" property="price"/>
+		  <id column="vip_price" property="vip_price"/>
+		  <id column="count" property="count"/>
+		  <id column="spec" property="spec"/>
+		  <id column="d_discount" property="discount"/>
+		</collection>
+	</resultMap>
+	<select id="selectOrderAndDetialById" resultMap="SelectOrderAndDetialMap" >
+		select 
+			o.id id, o.tea_fee tea_fee, o.people_count people_count, o.total_money total_money, o.table_num table_num, o.order_type order_type, 
+			o.eat_type, o.remark remark, o.emp_name emp_name, o.emp_id emp_id, o.emp_num emp_num, o.reality_put reality_put, o.discount discount,
+			o.shop_id shop_id, o.pay_type pay_type, o.pay_mode pay_mode, o.printers printers, o.create_time create_time, o.update_time update_time, o.pay_time pay_time,
+			o.already_money  already_money, o.list_money list_money,
+			
+			d.id detail_id, d.order_id order_id, d.item_id item_id, d.title title, d.show_img show_img, d.price price, d.vip_price vip_price, d.count count, d.spec spec, d.discount d_discount
+			
+			from cashier_order_master as o left join cashier_order_details as d on d.order_id=o.id where o.id=#{id}			
+	</select>
+	<select id="selectChefs" resultType="java.util.HashMap">
+			<!-- 遍历map  -->
+		    <foreach item="value" index="key" collection="params" >
+				${key} #{value}
+		    </foreach> 
+		<!-- select 
+			o.id id, o.tea_fee tea_fee, o.people_count people_count, o.total_money total_money, o.table_num table_num, o.order_type order_type, 
+			o.eat_type, o.remark remark, o.emp_name emp_name, o.emp_id emp_id, o.emp_num emp_num, o.reality_put reality_put, o.discount discount,
+			o.shop_id shop_id, o.pay_type pay_type, o.pay_mode pay_mode, o.printers printers, o.create_time create_time, o.update_time update_time, o.pay_time pay_time,
+			o.already_money  already_money, o.list_money list_money,
+			
+			d.id detail_id, d.order_id order_id, d.item_id item_id, d.title title, d.show_img show_img, d.price price, d.vip_price vip_price, d.count count, d.spec spec, d.discount d_discount
+			
+			from cashier_order_master as o left join cashier_order_details as d on d.order_id=o.id where o.shop_id=#{id}	 -->
+							
+	</select>
+	  <!-- 
+	    select * from user where id = ?
+	   -->
+	
+	
+</mapper>
+<!-- 
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `tea_fee` int(10) DEFAULT NULL COMMENT '茶位费',
+  `people_count` int(10) DEFAULT NULL COMMENT '就餐人数',
+  `total_money` bigint(20) DEFAULT NULL COMMENT '订单总价，茶位费等，分为单位',
+  `table_num` varchar(255) DEFAULT NULL COMMENT '桌号，打包的没有桌号',
+  `order_type` tinyint(3) DEFAULT NULL COMMENT '订单类型，1=先付后吃。2=先吃后付（挂单）',
+  `eat_type` tinyint(3) DEFAULT NULL COMMENT '就餐方式，1=打包 2=店内吃',
+  `remark` varchar(255) DEFAULT NULL COMMENT '订单备注',
+  `emp_name` varchar(255) DEFAULT NULL COMMENT '收银员姓名',
+  `emp_id` bigint(20) DEFAULT NULL COMMENT '收银员id',
+  `emp_num` varchar(255) DEFAULT NULL COMMENT '员工编号',
+  `reality_put` bigint(20) DEFAULT NULL COMMENT '实际收款，总金额-折扣，分为单位',
+  `discount` tinyint(3) DEFAULT NULL COMMENT '整单的打折，非单个商品的打折，1=1折',
+  `shop_id` varchar(32) DEFAULT NULL COMMENT '店铺id',
+  `pay_type` tinyint(3) DEFAULT NULL COMMENT '支付类型，1=微信，2=支付宝，3=现金...',
+  `pay_mode` tinyint(3) DEFAULT NULL COMMENT '支付方式：1=扫码付款，2=扫码枪付款',
+  `printers` varchar(255) DEFAULT NULL COMMENT '打印机，id+名字{id:1,name:"打印1"}',
+  `create_time` datetime DEFAULT NULL COMMENT '下单时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `pay_time` datetime DEFAULT NULL COMMENT '付款时间',
+  
+  
+  d.id detail_id, d.order_id order_id, d.item_id item_id, d.title title, d.show_img show_img, d.price price, d.vip_price vip_price, d.count count, d.spec spec, d.discount discount
+    `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `order_id` bigint(20) NOT NULL COMMENT '订单id',
+  `item_id` varchar(32) NOT NULL COMMENT '商品id',
+  `title` varchar(255) DEFAULT NULL COMMENT '商品名称或者标题',
+  `show_img` varchar(255) DEFAULT NULL COMMENT '商品展示图',
+  `price` bigint(20) DEFAULT NULL COMMENT '现价,分为单位',
+  `vip_price` bigint(20) DEFAULT NULL COMMENT '会员价，分为单位',
+  `count` int(10) DEFAULT NULL COMMENT '购买数量',
+  `spec` varchar(512) DEFAULT NULL COMMENT '产品规格属性（json格式）',
+  `discount` tinyint(3) DEFAULT NULL COMMENT '折扣 1= 1折',
+  
+   -->

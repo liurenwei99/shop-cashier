@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cashier.mapper.BaseMapper">
+  <!--********************************************insert语句   ****************************  -->
+ 	<insert id="insertKey" >
+ 	      <!--selectKey  会将 SELECT LAST_INSERT_ID()的结果放入到传入的model的主键里面，  
+        keyProperty 对应的model中的主键的属性名，这里是 user 中的id，因为它跟数据库的主键对应  
+        order AFTER 表示 SELECT LAST_INSERT_ID() 在insert执行之后执行,多用与自增主键，  
+              BEFORE 表示 SELECT LAST_INSERT_ID() 在insert执行之前执行，这样的话就拿不到主键了，  
+                    这种适合那种主键不是自增的类型  
+        resultType 主键类型 -->   
+	  
+		insert into ${params.tableName}(${params.cols}) values
+					(<foreach item="item"  collection="params.values"  separator="," >
+						#{item}
+				    </foreach>)
+				  
+			    	<selectKey keyProperty="params.id" keyColumn="id"  order="AFTER" resultType="java.lang.Long">  
+				        SELECT LAST_INSERT_ID()
+				    </selectKey> 
+				  
+		   
+	</insert>
+	<!-- 普通的insert -->
+	<insert id="insert" >
+		insert into ${params.tableName}(${params.cols}) values
+		(<foreach item="item"  collection="params.values" separator="," >
+			#{item}
+	    </foreach>)
+	</insert>
+	<insert id="insertBatch" >
+ 	    <!--values(100),(200),(500)   批量添加使用返回主键：useGeneratedKeys="true" keyProperty="cameraNo"> -->   
+		insert into ${params.tableName}(${params.cols}) values
+			<foreach item="value"  collection="params.values" separator="," >
+				(<foreach item="item"  collection="value" separator="," >
+					#{item}
+			    </foreach>)
+		    </foreach>
+	</insert>
+
+ <!--********************************************insert语句 end****************************  -->
+ 
+  <!--********************************************delete语句   ****************************  -->
+  	<delete id="delete">
+		delete from ${params.tableName} 
+		<include refid="where_criteria_clause"></include>
+	</delete>
+  	<delete id="deleteIn">
+		delete from ${params.tableName}
+		 <where><!-- 构造in语句：where order_id in (2,34,5,9) -->
+	    	 <foreach item="citem" index="index" collection="params.criterias" separator="" >
+			    	 <foreach item="item" collection="citem.conds">
+			    	 	${item.name} in 
+			    	 	 (<foreach item="v" collection="item.value" separator="," >
+			    	 	 	#{v}
+			    	 	 </foreach> 
+			    	 	 )
+			    	 </foreach>
+			    	 
+		    </foreach>
+     	 </where>
+	</delete>
+	
+		
+	<!-- 根据单个字段条件删除，比如根据id删除 -->
+	<delete id="deleteByCol">
+	   delete from ${tableName} where ${col} = #{values}
+	</delete>
+	
+
+ <!--********************************************delete语句 end****************************  -->
+ 
+ 
+  <!--********************************************update语句    ****************************  -->
+  	<update id="update">
+		update ${params.tableName} set 
+		    <!-- 遍历map  -->
+		    <foreach item="value" index="key" collection="params.cols" separator=","  >
+				`${key}`=#{value}
+		    </foreach> 
+		   <include refid="where_criteria_clause"></include>
+		  
+	</update>
+ <!--********************************************update语句 end****************************  -->
+ 
+ 
+ 
+ <!--********************************************select语句   ****************************  -->
+ 	  <!-- 条件查询一条记录 -->
+	 <select id="selectOne" resultType="java.util.HashMap">
+	 	select ${params.qcols} from ${params.tableName} 
+	   <include refid="where_criteria_clause"></include>
+	 </select>
+	 
+	 <!-- 条件查询多条记录。 -->	
+	 <select id="selectList" resultType="java.util.HashMap" >
+	 	select ${params.qcols} from ${params.tableName} 
+	 	<include refid="where_criteria_clause"></include>
+	 	<include refid="order_clause"></include>
+	 	<!-- 是否需要分页 -->
+	 	<include refid="limit_clause"></include>
+	 	
+	 </select>	
+	 
+	 <select id="selectX" resultType="java.util.HashMap">
+	 		<!-- 遍历map  -->
+		    <foreach item="value" index="key" collection="params" >
+				${key} <if test="value != ''">#{value}</if>
+		    </foreach> 
+	 </select>
+		
+ <!--********************************************select语句 end****************************  -->
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  <!-- 全局的sql -->
+ <!-- where条件 -->
+ <sql id="where_criteria_clause">
+ 	<if test="params.criterias!=null">
+      <where>
+    	<foreach item="citem" index="index" collection="params.criterias" separator="" >
+	    	 (<foreach item="item" collection="citem.conds">
+	    	 	${item.name} ${item.symbol} #{item.value} <if test="item.cond!=null">${item.cond} </if>
+	    	 </foreach>
+	    	 )
+	    	 <if test="citem.cond != null">${citem.cond}</if>
+    	</foreach>
+      </where>
+    </if>
+ </sql>
+ 
+ <!-- 结果排序子句 -->
+ <sql id="order_clause">
+ 	<if test="params.order!=null"> order by ${params.order}</if>
+ </sql>
+ <!-- 分页子句 -->
+ <sql id="limit_clause">
+ 	<if test="params.hasPage">limit #{params.page.startNum},#{params.page.pageSize}</if>
+ </sql>
+ 
+ 
+</mapper>

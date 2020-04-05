@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cashier.mapper.ItemMapper">
+  
+   <!-- 根据商品id，查询商品 -->
+   <select id="getById" resultType="java.util.HashMap">
+     select * from commodity_list where commodity_number = #{id}
+   </select>
+   
+   <!-- 根据商品类目id查询商品列表 -->
+   <select id="selectItemByCat" resultType="java.util.HashMap">
+        select * from Commodity_list where upper_shelf = 0    
+        <if test="catId">
+          and category_number = #{catId}
+        </if>
+        <!-- 分页查询 -->
+        <if test="page != null ">and store_number = #{shopId}  limit #{page.startNum},#{page.pageSize}</if>
+        
+    </select>
+</mapper>
