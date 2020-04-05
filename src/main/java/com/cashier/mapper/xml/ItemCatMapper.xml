@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cashier.mapper.ItemCatMapper">
+   <!-- 查询门店显示类目 -->
+   <select id="selectByShopId" resultType="java.util.HashMap" parameterType="java.lang.String">
+     select * from commodity_category where store_Number = #{shopId} and category_state = 0
+   </select>
+
+</mapper>
