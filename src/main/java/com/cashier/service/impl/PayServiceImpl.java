@@ -1,7 +1,5 @@
 package com.cashier.service.impl;
 
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
@@ -9,9 +7,6 @@ import org.springframework.stereotype.Service;
 import com.cashier.config.WxPayConfig;
 import com.cashier.service.PayService;
 import com.cashier.wxpay.WXPay;
-
-import common.WeResult;
-import funclass.QrCodeFun;
 
 /**
  * <p>PayServiceImpl: 支付service接口实现</p>  

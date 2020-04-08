@@ -1,7 +1,5 @@
 package com.cashier.controller;
 
-import static org.hamcrest.CoreMatchers.nullValue;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -10,7 +8,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoRestTemplateCustomizer;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,8 +16,7 @@ import com.cashier.config.CashierConfig;
 import com.cashier.pojo.Where;
 import com.cashier.service.BaseService;
 import com.cashier.utils.ParamsUtils;
-
-import common.WeResult;
+import com.myutil.common.WeResult;
 
 /**
  * <p>UserController: </p>  
@@ -63,5 +59,28 @@ public class UserController {
 			return WeResult.result(200, "ok");
 		}
 		return WeResult.result(500, "登录失败，门店或用户信息不可用！");
+	}
+	@RequestMapping("handoverSelect")
+	public WeResult handoverSelect(String id) {
+		System.out.println("UserController.handoverSelect():"+id);
+		if( id == null ) {
+			return WeResult.result(400, "参数有误！！");
+		}
+		
+		Map<String, Object>  total_moneyMap = baseService.selectOne(ParamsUtils.converSelect(DBValue.CASHIER_ORDER_MASTER, 
+				"sum(total_money) as total_money, sum(onecode) as onecode,sum(cash) as cash,count(id) as order_count", 
+				 new Where().name("emp_id").eq("=", id).criterias()
+				));
+		System.out.println("查询金额统计："+total_moneyMap);
+		return WeResult.result(200, total_moneyMap);
+	}
+	@RequestMapping("logout")
+	public WeResult logout(String token) {
+		Map<String, Map<String, Object>> remove = UserController.loginInfo.remove(token);
+		System.out.println("UserController.logout()移除登录信息："+remove);
+		if( remove != null ) {			
+			return WeResult.result(200, 1);
+		}
+		return WeResult.result(500, "退出失败，请稍后重试！");
 	}
 }

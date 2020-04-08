@@ -1,30 +1,14 @@
 package com.cashier.controller;
 
-import static org.hamcrest.CoreMatchers.nullValue;
-
-import java.awt.print.Book;
-import java.awt.print.PageFormat;
-import java.awt.print.Paper;
-import java.awt.print.PrinterException;
-import java.awt.print.PrinterJob;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
-import javax.print.DocFlavor;
-import javax.print.PrintService;
-import javax.print.PrintServiceLookup;
-import javax.print.attribute.HashPrintRequestAttributeSet;
-import javax.print.attribute.PrintRequestAttributeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cashier.common.DBValue;
@@ -36,8 +20,7 @@ import com.cashier.service.BaseService;
 import com.cashier.service.PrinterService;
 import com.cashier.utils.ParamsUtils;
 import com.cashier.utils.PrintUtils;
-
-import common.WeResult;
+import com.myutil.common.WeResult;
 
 /**
  * <p>PrintController: 打印控制器</p>  

@@ -10,22 +10,15 @@ import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import javax.print.DocFlavor;
-import javax.print.DocPrintJob;
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.PrintRequestAttributeSet;
 
-import com.alibaba.druid.sql.visitor.functions.If;
-import com.cashier.pojo.print.Row;
 import com.cashier.pojo.print.RowItem;
-
-import common.WeResult;
 
 public class Print implements Printable {
 	

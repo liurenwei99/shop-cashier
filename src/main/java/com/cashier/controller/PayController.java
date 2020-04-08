@@ -1,8 +1,6 @@
 package com.cashier.controller;
 
-import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
 import java.util.HashMap;
@@ -12,23 +10,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cashier.common.FinalValue;
 import com.cashier.config.WxPayConfig;
 import com.cashier.service.PayService;
 import com.cashier.wxpay.WXPay;
 import com.cashier.wxpay.WXPayConstants;
 import com.cashier.wxpay.WXPayUtil;
-
-import common.WeResult;
-import entity.WxPayParam;
-import funclass.QrCodeFun;
-import utils.HttpUtils;
+import com.myutil.common.WeResult;
+import com.myutil.entity.WxPayParam;
+import com.myutil.funclass.QrCodeFun;
+import com.myutil.utils.HttpUtils;
+import com.myutil.utils.WeQRCodeUtil;
 
 /**
  * <p>PayController: 支付控制器</p>  
@@ -64,7 +60,7 @@ public class PayController {
 	@RequestMapping("/create_code")
 	public void createQrCode() throws Exception {
 //		QrCodeFun.encode("name=张三",null, "E:\\dev-wei-19813\\eclipse\\workspace\\utils\\src\\main\\java\\funclass", false);
-		QrCodeFun.createQrCode("https://store.91changqi.com/restaurant/pay.html", "E:\\dev-wei-19813\\eclipse\\workspace\\utils\\src\\main\\java\\funclass", "pay.jpg");
+		WeQRCodeUtil.createLinkQrCode("https://store.91changqi.com/restaurant/pay.html", "E:\\dev-wei-19813\\eclipse\\workspace\\utils\\src\\main\\java\\funclass", "pay.jpg");
 	}
 	@RequestMapping("/payNow")
 	public WeResult payNow(Map<String, String> data) throws Exception {

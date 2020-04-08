@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,13 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cashier.common.FinalValue;
-import com.cashier.config.CashierConfig;
 import com.cashier.pojo.IndexParams;
 import com.cashier.service.IndexService;
 import com.cashier.service.impl.WebSocketServiceImpl;
-import com.cashier.utils.CookieUtils;
-
-import common.WeResult;
+import com.myutil.common.WeResult;
 
 /**
  * <p>IndexController: 首页controller</p>  

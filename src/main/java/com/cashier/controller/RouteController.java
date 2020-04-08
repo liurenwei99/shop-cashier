@@ -7,17 +7,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cashier.config.CashierConfig;
 import com.cashier.utils.CookieUtils;
-
-import common.WeResult;
+import com.myutil.common.WeResult;
 
 /**
  * <p>RouteController: 页面路由控制器 </p>  
@@ -68,7 +65,7 @@ public class RouteController {
 		if( UserController.loginInfo.get(id) != null ) {
 			response.addCookie(new Cookie(CashierConfig.cashier_token_name, id));
 			response.addCookie(new Cookie("abcd", "abcd"));
-			response.sendRedirect("http://localhost:8002/cashier");
+			response.sendRedirect("http://localhost:8001/cashier");
 		}else {// 登录
 			response.sendRedirect("http://localhost:8080/seller/loginList");
 		}

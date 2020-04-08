@@ -1,18 +1,14 @@
 package com.cashier.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.cashier.pojo.DeleteParams;
 import com.cashier.pojo.InsertParams;
 import com.cashier.service.BaseService;
-
-import common.WeResult;
+import com.myutil.common.WeResult;
 
 /**
  * <p>BaseController: 基控制器，包含基本的增删改查</p>  

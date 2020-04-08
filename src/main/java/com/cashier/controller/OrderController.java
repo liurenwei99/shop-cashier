@@ -40,9 +40,8 @@ import com.cashier.wxpay.WXPay;
 import com.cashier.wxpay.WXPayConstants;
 import com.cashier.wxpay.WXPayUtil;
 import com.google.gson.Gson;
-
-import common.WeResult;
-import utils.AppUtil;
+import com.myutil.common.WeResult;
+import com.myutil.utils.AppUtil;
 
 /**
  * <p>OrderController: 订单controller </p>  
