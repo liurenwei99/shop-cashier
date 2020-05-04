@@ -13,6 +13,7 @@ import org.junit.Test;
 import com.cashier.pojo.dto.CashierPrintTmp;
 import com.cashier.utils.ParamsUtils;
 import com.cashier.utils.PrintUtils;
+import com.myutil.utils.HttpUtils;
 
 /**
  * <p>MainText: </p>  
@@ -31,7 +32,15 @@ public class MainTest {
 //		for (File file2 : fs) {
 //			System.out.println(file2.getName());
 //		}
-		System.out.println(new PrintUtils());
+		
+		new Thread(new  Runnable() {
+			public void run() {
+				String doGet = HttpUtils.doGet("http://www.baidu.com", null);
+				System.out.println("MainTest.main()"+doGet);
+			}
+		}).start();
+		System.out.println("this is result！！");
+		
 		
 	}
 	
