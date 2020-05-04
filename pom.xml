@@ -28,7 +28,7 @@
 			<artifactId>utils</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<exclusions> 
-				<!--  <exclusion>
+				<!-- <exclusion>
 					<groupId>org.json</groupId>
 					<artifactId>json</artifactId>
 				</exclusion>  -->
@@ -37,12 +37,8 @@
 					<artifactId>slf4j-log4j12</artifactId>
 				</exclusion>
 				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-simple</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-api</artifactId>
+					<groupId>com.baidu.aip</groupId>
+					<artifactId>java-sdk</artifactId>
 				</exclusion>
 			</exclusions>
 			
@@ -50,12 +46,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-            	<exclusion>
-            		<groupId>org.slf4j</groupId>
-            		<artifactId>slf4j-api</artifactId>
-            	</exclusion>
-            </exclusions>
         </dependency>
 
         
@@ -121,13 +111,7 @@
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid-spring-boot-starter</artifactId>
 			<version>${druid.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-api</artifactId>
-				</exclusion>
-			</exclusions>
-   		</dependency>
+		</dependency>
 <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-websocket</artifactId>
